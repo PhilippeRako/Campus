@@ -13,6 +13,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.campusmobileapp.ui.theme.CampusMobileAppTheme
 
+data class Event(
+    val id: Int,
+    val title: String,
+    val category: String,
+    val location: String?,
+    val capacity: Int
+)
+
+val events = listOf(
+    Event(1, "Conférence Kotlin", "TECH", "Salle 204", 30),
+    Event(2, "Atelier Android", "TECH", "Salle 105", 15),
+    Event(3, "Tournoi de football", "SPORT", "Gymnase", 20),
+    Event(4, "Rencontre étudiants", "CAMPUS", null, 40),
+    Event(5, "Atelier Compose", "TECH", "Salle 301", 0)
+)
+
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
