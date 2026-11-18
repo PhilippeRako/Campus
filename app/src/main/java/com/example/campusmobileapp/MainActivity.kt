@@ -20,6 +20,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Card
 import androidx.compose.material3.TextButton
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import android.util.Log
 
 data class Event(
     val id: Int,
@@ -43,12 +48,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CampusMobileAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                EventListScreen(events)
             }
         }
     }
@@ -118,5 +118,33 @@ fun EventCardCompletPreview() {
             onClick = {},
             onBook = {}
         )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun EventListScreen(events: List<Event>) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Campus") }
+            )
+        }
+    ) { innerPadding ->
+        LazyColumn(
+            contentPadding = innerPadding
+        ) {
+            items(events, key = { it.id }) { event ->
+                EventCard(
+                    event = event,
+                    onClick = {
+                        Log.d("Campus", "Clic sur ${event.title}")
+                    },
+                    onBook = {
+                        Log.d("Campus", "Réservation ${event.title}")
+                    }
+                )
+            }
+        }
     }
 }
