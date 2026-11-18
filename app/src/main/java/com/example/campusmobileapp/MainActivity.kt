@@ -1,6 +1,8 @@
 
 package com.example.campusmobileapp
 
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -25,6 +28,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
@@ -248,10 +252,60 @@ fun EventDetailScreen(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(
+    name = "Liste - Clair",
+    showBackground = true,
+    uiMode = UI_MODE_NIGHT_NO
+)
 @Composable
-fun EventDetailPreview() {
-    CampusMobileAppTheme {
-        EventDetailScreen(event = events[0])
+fun EventListLightPreview() {
+    CampusMobileAppTheme(darkTheme = false) {
+        EventListScreen(events)
+    }
+}
+
+@Preview(
+    name = "Liste - Sombre",
+    showBackground = true,
+    uiMode = UI_MODE_NIGHT_YES
+)
+@Composable
+fun EventListDarkPreview() {
+    CampusMobileAppTheme(darkTheme = true) {
+        EventListScreen(events)
+    }
+}
+
+@Preview(
+    name = "Detail - Clair",
+    showBackground = true,
+    uiMode = UI_MODE_NIGHT_NO
+)
+@Composable
+fun EventDetailLightPreview() {
+    CampusMobileAppTheme(darkTheme = false) {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            EventDetailScreen(event = events[0])
+        }
+    }
+}
+
+@Preview(
+    name = "Detail - Sombre",
+    showBackground = true,
+    uiMode = UI_MODE_NIGHT_YES
+)
+@Composable
+fun EventDetailDarkPreview() {
+    CampusMobileAppTheme(darkTheme = true) {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            EventDetailScreen(event = events[0])
+        }
     }
 }
