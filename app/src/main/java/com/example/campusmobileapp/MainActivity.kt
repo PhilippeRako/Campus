@@ -2,29 +2,32 @@
 package com.example.campusmobileapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.campusmobileapp.ui.theme.CampusMobileAppTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.Card
 import androidx.compose.material3.TextButton
-import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.ExperimentalMaterial3Api
-import android.util.Log
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.campusmobileapp.ui.theme.CampusMobileAppTheme
 
 data class Event(
     val id: Int,
@@ -41,6 +44,8 @@ val events = listOf(
     Event(4, "Rencontre étudiants", "CAMPUS", null, 40),
     Event(5, "Atelier Compose", "TECH", "Salle 301", 0)
 )
+
+val categories = listOf("TECH", "SPORT", "CAMPUS")
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -134,6 +139,21 @@ fun EventListScreen(events: List<Event>) {
         LazyColumn(
             contentPadding = innerPadding
         ) {
+            item {
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(categories) { category ->
+                        FilterChip(
+                            selected = false,
+                            onClick = {},
+                            label = { Text(category) }
+                        )
+                    }
+                }
+            }
+
             items(events, key = { it.id }) { event ->
                 EventCard(
                     event = event,
