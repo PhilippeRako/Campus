@@ -20,8 +20,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -94,13 +96,22 @@ fun EventCard(
     onClick: () -> Unit,
     onBook: () -> Unit
 ) {
-    Card(onClick = onClick) {
+    Card(
+        onClick = onClick,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+        )
+    ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(event.title)
+                Text(
+                    text = event.title,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.primary
+                )
                 Text(event.category)
             }
 
@@ -149,9 +160,16 @@ fun EventCardCompletPreview() {
 @Composable
 fun EventListScreen(events: List<Event>) {
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.app_name)) }
+                title = {
+                    Text(
+                        text = stringResource(R.string.app_name),
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.headlineMedium
+                    )
+                }
             )
         }
     ) { innerPadding ->
@@ -207,7 +225,12 @@ fun EventDetailScreen(
                 .height(160.dp)
         )
 
-        Text(event.title)
+        Text(
+            text = event.title,
+            style = MaterialTheme.typography.headlineMedium,
+            color = MaterialTheme.colorScheme.primary
+        )
+
         Text(event.category)
         Text(event.location ?: stringResource(R.string.location_unknown))
 
