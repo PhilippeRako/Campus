@@ -1,3 +1,4 @@
+
 package com.example.campusmobileapp
 
 import android.os.Bundle
@@ -105,5 +106,17 @@ fun EventCard(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun EventCardCompletPreview() {
+    CampusMobileAppTheme {
+        EventCard(
+            event = events[4],
+            onClick = {},
+            onBook = {}
+        )
     }
 }
