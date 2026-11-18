@@ -1,3 +1,14 @@
+
 <resources>
-    <string name="app_name">Campus mobile app</string>
+    <string name="app_name">Campus</string>
+    <string name="hello">Hello %1$s!</string>
+    <string name="location_unknown">Lieu à confirmer</string>
+    <string name="full">Complet</string>
+    <string name="book">Réserver</string>
+    <string name="event_image">Image de l\'événement</string>
+
+    <plurals name="available_places">
+        <item quantity="one">%d place disponible</item>
+        <item quantity="other">%d places disponibles</item>
+    </plurals>
 </resources>

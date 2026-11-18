@@ -30,6 +30,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.campusmobileapp.ui.theme.CampusMobileAppTheme
@@ -73,7 +75,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Hello $name!",
+        text = stringResource(R.string.hello, name),
         modifier = modifier
     )
 }
@@ -102,12 +104,18 @@ fun EventCard(
                 Text(event.category)
             }
 
-            Text(event.location ?: "Lieu à confirmer")
+            Text(event.location ?: stringResource(R.string.location_unknown))
 
             if (event.capacity == 0) {
-                Text("Complet")
+                Text(stringResource(R.string.full))
             } else {
-                Text("${event.capacity} places disponibles")
+                Text(
+                    pluralStringResource(
+                        R.plurals.available_places,
+                        event.capacity,
+                        event.capacity
+                    )
+                )
             }
 
             Row(
@@ -118,7 +126,7 @@ fun EventCard(
                     onClick = onBook,
                     enabled = event.capacity > 0
                 ) {
-                    Text("Réserver")
+                    Text(stringResource(R.string.book))
                 }
             }
         }
@@ -143,7 +151,7 @@ fun EventListScreen(events: List<Event>) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Campus") }
+                title = { Text(stringResource(R.string.app_name)) }
             )
         }
     ) { innerPadding ->
@@ -192,7 +200,7 @@ fun EventDetailScreen(
     ) {
         Image(
             painter = painterResource(R.drawable.ic_launcher_foreground),
-            contentDescription = "Image de l'événement",
+            contentDescription = stringResource(R.string.event_image),
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
@@ -201,7 +209,7 @@ fun EventDetailScreen(
 
         Text(event.title)
         Text(event.category)
-        Text(event.location ?: "Lieu à confirmer")
+        Text(event.location ?: stringResource(R.string.location_unknown))
 
         Text(
             text = event.description,
@@ -212,7 +220,7 @@ fun EventDetailScreen(
             onClick = onBook,
             enabled = event.capacity > 0
         ) {
-            Text("Réserver")
+            Text(stringResource(R.string.book))
         }
     }
 }
